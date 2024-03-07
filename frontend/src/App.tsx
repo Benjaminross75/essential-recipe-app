@@ -5,12 +5,16 @@ import { Recipe } from './types';
 import RecipeCard from './components/RecipeCard';
 import RecipeModal from './components/RecipeModal';
 
+type Tabs = "search" | "favorites";
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe| undefined>(
     undefined
-    );
+  );
+  const [selectedTab, setSelectedTab] = useState<Tabs>("search")
+
   const pageNumber = useRef(1);
 
   const handleSearchSubmit = async (event: FormEvent) => {
@@ -36,7 +40,12 @@ const App = () => {
   };
 return(
   <div>
-    <form onSubmit={(event)=> handleSearchSubmit(event)}>
+    <div className='tabs'>
+      <h1 onClick={()=> setSelectedTab("search")}>Recipe Search</h1>
+      <h1 onClick={()=> setSelectedTab("favorites")}>Favorites</h1>
+    </div>
+    {selectedTab === "search" && (<>
+      <form onSubmit={(event)=> handleSearchSubmit(event)}>
       <input type='text'
              required
              placeholder='Search for a Recipe...'
@@ -53,6 +62,10 @@ return(
     onClick={handleViewMoreClick}
     >View More
     </button>
+    </>)}
+    {selectedTab === "favorites" && (
+      <div>This is our Favorites Tab</div>
+    )}
     {selectedRecipe ? (<RecipeModal
     recipeId={selectedRecipe.id.toString()}
     onClose={()=> setSelectedRecipe(undefined)}

@@ -13,9 +13,22 @@ const App = () => {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe| undefined>(
     undefined
   );
-  const [selectedTab, setSelectedTab] = useState<Tabs>("search")
+  const [selectedTab, setSelectedTab] = useState<Tabs>("search");
+  const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>([]);
 
   const pageNumber = useRef(1);
+
+  useEffect(()=>{
+    const fetchFavoriteRecipes = async () => {
+      try {
+        const favoriteRecipes = await api.getFavoriteRecipes();
+        setFavoriteRecipes(favoriteRecipes.results);
+      } catch (error) {
+         console.log(error)
+      }
+    }
+    fetchFavoriteRecipes();
+  },[])
 
   const handleSearchSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -64,8 +77,16 @@ return(
     </button>
     </>)}
     {selectedTab === "favorites" && (
-      <div>This is our Favorites Tab</div>
-    )}
+    <div>
+       {favoriteRecipes.map((recipe) => (
+        <RecipeCard
+        recipe={recipe}
+        onClick={()=> setSelectedRecipe(recipe)}
+        />
+       ))}
+      </div>
+      )}
+
     {selectedRecipe ? (<RecipeModal
     recipeId={selectedRecipe.id.toString()}
     onClose={()=> setSelectedRecipe(undefined)}

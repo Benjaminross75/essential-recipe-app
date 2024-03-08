@@ -18,7 +18,7 @@ const RecipeCard = ({recipe, onClick, onFavoriteButtonClick, isFavorite }: Props
           }}
         >
           {isFavorite ? (
-          <AiFillHeart size={25} color='red'/>
+          <AiFillHeart size={25} color='#CC5500'/>
           ) : (
           <AiOutlineHeart size={25}/>
           )}

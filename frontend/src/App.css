@@ -6,7 +6,7 @@ body {
   padding-top: 5em;
   padding-bottom: 5em;
   height: 100vh;
-  background-color: rgb(232, 246, 246);
+  background:  rgb(167, 225, 225);
 }
 
 @media (min-width: 768px) {
@@ -17,7 +17,7 @@ body {
 }
 
 .tab-active {
-  border-bottom: 4px rgb(202, 129, 2) solid;
+  border-bottom: 4px rgb(204,85,0) solid;
   padding-bottom: 0.5em;
 }
 
@@ -46,9 +46,11 @@ button {
 
 .recipe-grid {
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 2em;
+  padding-top: 2em;
 }
+
 
 .recipe-card {
   display:flex;
@@ -60,6 +62,18 @@ button {
   position: relative;
   cursor: pointer;
   gap: 1.5em;
+  animation: scaleIn 1.5s ease-in-out forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0.8;
+    transform: scale(1);
+  }
 }
 
 .recipe-card h3 {
@@ -68,14 +82,52 @@ button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
 
 .view-more-button {
-  font-size: 1.5em;
-  padding: 1em;
+  font-size: 1em;
+  padding: 0.5em;
   font-weight:bold;
+  border-radius: 1em;
+
   margin:auto;
+  animation: wiggle 2s linear infinite;
+}
+
+.view-more-button:hover {
+  background-color: #CC5500; /* Burnt orange */
+  color: white;
+}
+
+@keyframes wiggle {
+  0%, 7% {
+    transform: rotateZ(0);
+
+  }
+  15% {
+    transform: rotateZ(-15deg);
+
+  }
+  20% {
+    transform: rotateZ(10deg);
+
+  }
+  25% {
+    transform: rotateZ(-10deg);
+
+  }
+  30% {
+    transform: rotateZ(6deg);
+
+  }
+  35% {
+    transform: rotateZ(-4deg);
+
+  }
+  40%, 100% {
+    transform: rotateZ(0);
+
+  }
 }
 
 .app-container {
@@ -91,24 +143,42 @@ button {
 .header img {
   width: 100%;
   height: 500px;
+
   object-fit: cover;
   object-position: center;
-  opacity: 50%;
+  opacity: 60%;
   border-radius: 1em;
 }
 
+
+
 .title {
-  position: absolute;
+  position:absolute;
+
   top: 50%;
-  left: 50%;
+  left: 37%;
   transform: translate(-50%, -50%);
   color: white;
   font-size: 2em;
+  font-family: cursive;
   text-align: center;
-  background-color: black;
-  opacity: 80%;
-  padding: 0.5em 1.5em 0.5em 1.5em;
+  background-color: rgb(204, 85, 0);
+  opacity: 100%;
+  padding: 0.3em 1.3em 0.3em 1.3em;
+  animation: rotateIn 1.5s ease-in-out forwards;
+  border-radius: 1em;
 }
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg);
+  }
+  to {
+    opacity: 0.8;
+    transform: rotate(0deg);
+  }
+}
+
 
 .overlay {
   position: fixed;
@@ -118,7 +188,6 @@ button {
   height: 100%;
   background-color: rgb(0,0,0,0.7);
   z-index: 1;
-
 }
 
 .modal {
@@ -129,6 +198,7 @@ button {
   z-index: 2;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
 
 .modal-header {
   display: flex;
@@ -148,10 +218,17 @@ button {
   display: flex;
   gap: 2em;
   cursor: pointer;
+  font-family: cursive;
 }
 
 .recipe-card-title {
   display:flex;
   align-items: center;
   gap: 0.5em;
+}
+
+
+
+input {
+  font-family: cursive;
 }
